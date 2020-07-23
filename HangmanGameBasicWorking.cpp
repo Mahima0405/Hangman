@@ -64,6 +64,9 @@ void drawhangman(int tries)
 	{
        PrintNewSentence("|", false, false);
 	}
+	else{
+		PrintNewSentence("", false, false);
+	}
 
 	if(tries ==5)
 	{
@@ -218,16 +221,19 @@ int main()
     cout<<">";
     cin>>ch;
     if(guessed.find(ch) == string::npos)
-    	guessed = guessed + ch;
+    	{
+    		guessed = guessed + ch;
 
-    if(!CharAddedIsRightOrNot(WordToBeGuessed, ch))
-    tries--;
+            if(!CharAddedIsRightOrNot(WordToBeGuessed, ch))
+            tries--;
+        }
 
     
     }while(tries >= 0);
 
     if(!win){
     	PrintNewSentence("YOU LOST!", false);
+    	PrintNewSentence("THE WORD IS : " + WordToBeGuessed, false);
     }
     else PrintNewSentence("YOU WON!", false);
     return 0;
