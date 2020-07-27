@@ -3,6 +3,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <time.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 void PrintNewSentence(string str, bool printtop= true, bool printbottom= true)
@@ -42,10 +43,11 @@ int printintroduction()
 	PrintNewSentence("WELCOME TO THE HANGMAN GAME");
 
 	cout<<endl<<endl;
-
-	PrintNewSentence("1. HOW TO PLAY?");
-	PrintNewSentence("2. PLAY THE GAME", false);
-	PrintNewSentence("3. EXIT         ", false);
+   
+    PrintNewSentence("0. ADD NEW WORD (ONLY FOR ADMIN)");
+	PrintNewSentence("1. HOW TO PLAY?                 ", false);
+	PrintNewSentence("2. PLAY THE GAME                ", false);
+	PrintNewSentence("3. EXIT                         ", false);
 
     cout<<endl<<endl;
     cout<<"\t\t\t\t\t ENTER YOUR CHOICE -->  ";
@@ -223,12 +225,53 @@ string selectword(string path)
 	return word;
 }
 
+void setters()
+{
+	system("cls");
+	PrintNewSentence("Enter the password : ");
+	cout<<"\t\t\t-->";
+	string pswd;
+	cin >> pswd;
+	if(pswd == "123456")
+	{
+		system("cls");
+		PrintNewSentence("HOW MANY NEW WORDS YOU WANT TO STORE?");
+		cout<<"\t\t\t-->";
+		int num; cin>>num;
+
+		ofstream out_file;
+		out_file.open("hangman game.txt", ios::app);
+
+		while(num --)
+		{
+		system("cls");
+		PrintNewSentence("ENTER THE NEW WORD ", true, true);
+		cout<<"\t\t\t-->";
+		string word;
+		cin>>word;
+
+		transform(word.begin(), word.end(), word.begin(), ::toupper);
+
+		out_file<<"\n"<<word;	   
+		 }
+        
+        out_file.close();
+	}
+}
+
+
 int main()
 {
 	srand(time(0));
 	string WordToBeGuessed = selectword("hangman game.txt");
 
 	int choice = printintroduction();
+
+	while(choice == 0)
+	{
+		setters();
+		choice = printintroduction();
+	}
 
 	while(choice == 1)
 	{
